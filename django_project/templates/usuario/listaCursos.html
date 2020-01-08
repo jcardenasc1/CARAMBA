@@ -1,0 +1,79 @@
+{% extends "base2.html" %}
+    {% block contenido %}
+    {% if user.is_superuser or user.status == '2' %}
+
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Mis Cursos <small>listado</small>
+                        </h1>
+
+                    </div>
+                </div>
+				   <!-- Parte central -->
+            <div class="col-md-12">
+
+              <table id="example" class="display" cellspacing="10"  width="100%">
+                   <thead>
+                        <tr>
+                            <th>Semestre</th>
+                            <th>Descripcion</th>
+                            <th>Docente</th>
+                            <th>Cantidad</th>
+                            <th>Accion</th>
+                        </tr>
+                   </thead>
+                  <tbody>
+
+                  {% for c in cursos %}
+                      <tr>
+                        <td> {{ c.semester }}</td>
+                        <td> {{ c.description }}</td>
+                        <td> {{ c.user }}</td>
+                        <td > {{ c.cantidad }}</td>
+                        <td ><a href="{% url 'students' c.pk %}" class="btn btn-info"> <i class="fa fa-eye"></i> </a></td>
+                      </tr>
+                  {% endfor %}
+                    </tbody>
+                   <tfoot>
+                        <tr>
+                           <th>Semestre</th>
+                            <th>Descripcion</th>
+                            <th>Docente</th>
+                            <th>Cantidad</th>
+                            <th>Accion</th>
+                        </tr>
+                    </tfoot>
+
+              </table>
+            </div>
+            <!-- Fin del div de parte central -->
+        </div>
+        <!-- Fin Campos del formulario de contacto con validación de campos -->
+        &nbsp;
+        <hr>
+
+            <!-- Fin del form -->
+                    </div>
+
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            No tiene permisos para realizar esta accion
+        </div>
+    {% endif %}
+
+    {% endblock %}}
+
+    {% block js %}
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+    {% endblock %}}

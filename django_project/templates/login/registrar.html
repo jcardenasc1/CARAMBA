@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Inicio de sesion</title>
+    <!-- Bootstrap -->
+	<link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet">
+	<link href="{{STATIC_URL}}css/style.css" rel="stylesheet">
+    <script src="{{STATIC_URL}}js/jquery-2.2.0.js"></script>
+    <link href="{{STATIC_URL}}fonts/css/font-awesome.min.css" rel="stylesheet">
+  </head>
+  <body class="lg">
+
+
+  <div class="row">
+            <div class="circulo">
+                <img src="{{ STATIC_URL }}images/agenda.png" alt="" class="logo">
+            </div>
+        </div>
+    <div class="container-fluid">
+
+        <div class="row">
+  			<div class="col-md-offset-7 col-md-3 login">
+  				<div class="panel panel-default">
+  					<div class="panel-body">
+    					<div class="page-header">
+  							<h3>Registro Usuario</h3>
+						</div>
+						<div class="row">
+
+
+            </div>
+
+                    <form role="form" method="POST">{% csrf_token %}
+                     <div class="form-group">
+                                 {% if form.first_name.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                        <ul class="errorlist"><li>Escribe su nombre<ul class="errorlist"></ul></li></ul>
+                                    </div>
+                                 {% endif %}
+    							<label for="exampleInputEmail1">{{ form.first_name.label_tag }}</label>
+                                     <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span></span>
+                                        {{ form.first_name }}
+
+                                     </div>
+
+                            </div>
+                     <div class="form-group">
+                                 {% if form.last_name.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                        <ul class="errorlist"><li>Escribe sus apellidos<ul class="errorlist"></ul></li></ul>
+                                    </div>
+                                 {% endif %}
+    							<label for="exampleInputEmail1">{{ form.last_name.label_tag }}</label>
+                                     <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span></span>
+                                        {{ form.last_name }}
+
+                                     </div>
+
+                            </div>
+                            <div class="form-group">
+                                {% if form.username.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                        <ul class="errorlist"><li>Usuario no valido<ul class="errorlist"></ul></li></ul>
+                                    </div>
+                                 {% endif %}
+    								<label for="exampleInputEmail1">{{ form.username.label_tag }}</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-bars"></i></span></span>
+                                    {{ form.username }}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                 {% if form.password.errors %}
+                                    <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                        <ul class="errorlist"><li>Escribe una contraseña<ul class="errorlist"></ul></li></ul>
+                                    </div>
+                                 {% endif %}
+    							<label for="exampleInputEmail1">{{ form.password.label_tag }}</label>
+                                     <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-map-marker"></i></span></span>
+                                        {{ form.password }}
+
+                                     </div>
+
+                            </div>
+
+                            <div class="hidden-xs">
+                                <p style="line-height: 70px; text-align: center;">
+                                <button type="button submit" class="btn btn-success btn-lg">Registrar</button>
+                            </div>
+
+                            <div class="visible-xs">
+                                <button type="button submit" class="btn btn-success btn-block">Registrar</button>
+                            </div>
+						</form>
+
+  					</div>
+				</div>
+  			</div>
+		</div>
+
+        <footer class="footer1">
+      <div class="container">
+      </div>
+    </footer>
+      <footer class="footer">
+      <div class="container-fluid">
+          <h2 CLASS="pull-right unemi"><i class="fa fa-graduation-cap ico"></i> UNEMI CALENDAR!</h2>
+      </div>
+    </footer>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>CARAMBA</title>
+
+    <!-- Bootstrap -->
+    <link href="{{STATIC_URL}}css/perfil/bootstrap.min.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}css/ejercicio/jquery.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link href="{{STATIC_URL}}fonts/font-awesome/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom styling plus plugins -->
+    <link href="{{STATIC_URL}}css/custom.min.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}css/highcharts.css" rel="stylesheet">
+    <link href="{{STATIC_URL}}css/sweetalert.css" rel="stylesheet">
+    {% block extrastatic %}
+
+    {% endblock %}
+</head>
+
+<body class="nav-md">
+<div class="container body">
+
+    <div class="main_container">
+
+        <div class="col-md-3 left_col">
+
+            <div class="left_col scroll-view">
+
+                <div class="navbar nav_title" style="border: 0;">
+                    <a href="{% url 'start' %}" class="site_title"><i class="fa fa-paw"></i> <span>CARAMBA</span></a>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div class="profile clearfix">
+
+                    <div class="profile_info">
+                        <h2>Bienvenido,{{user.username}}</h2>
+                    </div>
+                </div>
+                <!-- /menu profile quick info -->
+
+                <br />
+
+                <!-- sidebar menu -->
+                <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                    <div class="menu_section">
+                        <h3>General</h3>
+                        <ul class="nav side-menu">
+                            {% if user.status == '2' or user.is_superuser %}
+                                <li><a><i class="fa fa-desktop"></i> Administración <span class="fa fa-chevron-down"></span></a>
+                                    <ul class="nav child_menu">
+                                        {% if user.is_superuser %}
+                                            <li><a href="{% url 'adminCharacteristic' %}"> <i class="fa fa-tags pull-right"></i> Panel Características</a></li>
+                                            <li><a href="{% url 'newCharacteristic' %}"><i class="fa fa-plus pull-right"></i> Crear Características</a></li>
+
+                                            <li><a href="{% url 'adminSemester' %}"> <i class="fa fa-graduation-cap pull-right"></i> Panel Semestre</a></li>
+                                            <li><a href="{% url 'newSemester' %}"><i class="fa fa-plus pull-right"></i> Crear Semestre</a></li>
+
+                                            <li><a href="{% url 'adminCourse' %}"> <i class="fa fa-bookmark pull-right"></i> Panel Cursos</a></li>
+                                            <li><a href="{% url 'newCourse' %}"><i class="fa fa-plus pull-right"></i> Crear Curso</a></li>
+                                        {% endif %}
+                                        <li><a href="{% url 'adminExercise' %}"><i class="fa fa-pencil-square-o pull-right"></i> Panel Ejercicios</a></li>
+                                        <li><a href="{% url 'newExercise' %}"><i class="fa fa-plus pull-right"></i> Crear Ejercicio</a></li>
+
+                                    </ul>
+                                </li>
+                            {% endif %}
+                            <li><a><i class="fa fa-user"></i> Mi Perfil <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{% url 'profile' user.username %}"><i class="fa fa-refresh pull-right"></i>Actualizar Perfil</a></li>
+                                    <li><a href="{% url 'password' %}"><i class="fa fa-lock pull-right"></i>Cambiar Contraseña</a></li>
+                                </ul>
+                            </li>
+
+                            <li><a><i class="fa fa-table"></i> Mis Ejercicios <span class="fa fa-chevron-down"></span></a>
+                                <ul class="nav child_menu">
+                                    <li><a href="{% url 'start' %}"><i class="fa fa-code pull-right"></i>Iniciar Evaluación</a></li>
+                                    {#                      <li><a href="#" data-toggle="modal" data-target="#myLevel"><i class="fa fa-bar-chart pull-right"></i>Nivel Académico</a></li>#}
+                                    <li><a href="{% url 'myLevel' %}" target="_blank"><i class="fa fa-certificate pull-right"></i>Mi Certificado</a></li>
+                                    <li><a href="{% url 'searchExercise' %}"><i class="fa fa-code pull-right"></i>Mis Ejercicios</a></li>
+                                </ul>
+                            </li>
+
+                            {% if user.status == '2' %}
+                                <li><a><i class="fa fa-users"></i> Mis Estudiantes <span class="fa fa-chevron-down"></span></a>
+
+                                    <ul class="nav child_menu">
+                                        <li><a href="{% url 'courses'%}"><i class="fa fa-users pull-right"></i> Mis Estudiantes</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+
+                            {% if user.is_superuser %}
+                                <li><a><i class="fa fa-list-alt"></i> Reportes <span class="fa fa-chevron-down"></span></a>
+
+                                    <ul class="nav child_menu">
+{#                                      <li><a href="" onclick="expo('usuario')" data-toggle="modal" data-target="#reporte"><i class="fa fa-users pull-right"></i> Usuarios</a></li>#}
+{#                                      <li><a href="" onclick="expo('ejercicio')" data-toggle="modal" data-target="#reporte"><i class="fa fa-code pull-right"></i> Ejercicios</a></li>#}
+{#                                      <li><a href="" onclick="expo('evaluacion')" data-toggle="modal" data-target="#reporte"><i class="fa fa-code pull-right"></i> Evaluaciones</a></li>#}
+                                        <li><a href="/reporte-usuario/"><i class="fa fa-users pull-right"></i> Usuarios</a></li>
+                                        <li><a href="/reporte-ejercicio/"><i class="fa fa-code pull-right"></i> Ejercicios</a></li>
+                                        <li><a href="/reporte-evaluacion/"><i class="fa fa-code pull-right"></i> Evaluaciones</a></li>
+                                    </ul>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <div class="sidebar-footer hidden-small">
+                    <a data-toggle="tooltip" data-placement="top" title="Actualizar Perfil" href="{% url 'profile' user.username %}">
+                        <span aria-hidden="true"><i class="fa fa-refresh fa-2x"></i></span>
+                    </a>
+                    {#              <a data-toggle="modal" data-target="#myLevel" data-placement="top" title="Nivel Academico">#}
+                    {#                <span aria-hidden="true"><i class="fa fa-bar-chart fa-2x "></i></span>#}
+                    {#              </a>#}
+                    <a data-toggle="tooltip" data-placement="top" title="Mis ejercicios" href="{% url 'searchExercise' %}">
+                        <span aria-hidden="true"><i class="fa fa-code fa-2x "></i></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Cambiar Contraseña" href="{% url 'password' %}">
+                        <span aria-hidden="true"><i class="fa fa-lock fa-2x"></i></span>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="top" title="Salir" href="{% url 'logout' %}">
+                        <!--<span class="glyphicon glyphicon-off" aria-hidden="true"></span>-->
+                        <span><i class="fa fa-power-off fa-2x"></i></span>
+                    </a>
+                </div>
+                <!-- /menu footer buttons -->
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <!--<div class="text-right" style="background-color: #ff9f00" id="google_translate_element"></div>-->
+                            <div class="text-center" id="google_translate_element"></div>
+                            <script type="text/javascript">
+                                function googleTranslateElementInit() {
+                                    new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false}, 'google_translate_element');
+                                }
+                            </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+                        </li>
+                        <li class="">
+
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                {{user.first_name}} {{user.last_name}}
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="{% url 'profile' user.username %}"> <i class="fa fa-refresh pull-right"></i> Actualizar Perfil</a></li>
+                                <li>
+                                    <a href="{% url 'password' %}">
+                                        <!--<span class="badge bg-red pull-right">50%</span>-->
+                                        <span><i class="fa fa-lock pull-right"></i>Cambiar Contraseña</span>
+                                    </a>
+                                </li>
+                                <li><a href="{% url 'logout' %}"><i class="fa fa-sign-out pull-right"></i>Salir</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3 style="color:#f39c12">CARAMBA<small></small></h3>
+                    </div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="x_panel">
+                            <div class="x_title"  >
+                                <h2>Formulario <small></small></h2>
+                                <ul class="nav navbar-right panel_toolbox">
+                                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                    </li>
+
+                                </ul>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="myLevel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel">Nivel Académico</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="level"></div>
+
+                                                <div style="display: table; margin: 0 auto" >
+                                                    <button class="btn btn-success" id="plain">Simple</button>
+                                                    <button class="btn btn-success" id="inverted">Invertido</button>
+                                                    <button class="btn btn-success" id="polar">Polar</button>
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                                <a href="{% url 'myLevel' %}" target="_blank" type="button" class="btn btn-success">Descargar Certificado</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="reporte" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                <h4 class="modal-title" id="myModalLabel1">Modal title</h4>
+                                            </div>
+                                            <div class="modal-body" style="display: table; margin: 0 auto">
+                                                <a href="" type="button" id="export" class="btn btn-success">Exportar Excel <i class="fa fa-file-excel-o" aria-hidden="true"></i></a>
+                                                <a href="" target="_blank" type="button" class="btn btn-danger">Exportar PDF <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
+                                                <a href="" type="button" class="btn btn-primary">Consultar registros <i class="fa fa-search-plus" aria-hidden="true"></i></a>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                {% block contenido %}
+
+                                {% endblock %}
+                                <!-- Large modal -->
+                                <div id="mymodal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div id="body" >
+                                                <table id="zctb" class="display table table-striped table-bordered table-hover" cellspacing="0">
+                                                    <div align="center" style="font-size: 14pt">SELECCIONE EL SEMESTRE/CURSO EL CUAL ESTE CURSANDO ACTUALMENTE</div>
+                                                    <thead>
+
+                                                    <tr>
+                                                        <th> Semestre</th>
+                                                        <th> Docente</th>
+                                                        <th> Curso</th>
+                                                        <th class="text-center">Acciones</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    <!--sdf-->
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+                CARAMBA - Copyright © 2017. Todos los derechos reservados. <a href="https://colorlib.com">Colorlib</a>
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+
+<!-- jQuery -->
+<!--<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>-->
+<script src="{{STATIC_URL}}js/perfil/jquery.js"></script>
+<!-- Bootstrap -->
+<script src="{{STATIC_URL}}js/perfil/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="{{STATIC_URL}}js/perfil/datatable.js"></script>
+<!-- Custom Theme Scripts -->
+<script src="{{STATIC_URL}}js/custom.min.js"></script>
+<script src="{{STATIC_URL}}js/echarts.min.js"></script>
+
+<script src="{{STATIC_URL}}js/highcharts.js"></script>
+<script src="{{STATIC_URL}}js/highcharts-more.js"></script>
+<script src="{{STATIC_URL}}js/exporting.js"></script>
+<script src="{{ STATIC_URL }}js/sweetalert.min.js"></script>
+
+
+
+<script>
+    $('a.link-back').click(function(){
+        history.back();
+        return false;
+    });
+</script>
+
+<script>
+
+    window.onload = function () {
+
+        $.ajax({
+            url: '/matricula/',
+            type: 'get',
+            success: function(context) {
+                for (i=0; i < context.length ;i++){
+
+                    if (context[i].registro == false){
+
+                        $.ajax({
+                            url: '/listadoCursos/',
+                            type: 'get',
+                            success: function(context) {
+                                var t = $('#zctb').DataTable();
+                                for (i=0; i < context.length ;i++){
+
+                                    t.row.add( [
+                                        context[i].semestre,
+                                        context[i].docente,
+                                        context[i].curso,
+                                        '<a href="" onclick="matricular('+ context[i].id+')" class="btn btn-success" title="Registrarme"><span><i class="fa fa-check-square-o"></i></span></a>',
+
+                                    ] ).draw( false );
+
+                                }
+
+//                                  $('#body').html("asdd");
+                                {% if user.status == '1' %}
+                                    $('.bs-example-modal-lg').modal('show');
+                                {% endif  %}
+                            }
+                        });
+
+
+
+                    }
+                }
+
+            }
+        });
+
+
+    }
+</script>
+
+<script>
+    function expo(e){
+
+        if(e=="usuario"){
+            $('#export').attr("href","/reporte-usuario/")
+        }else{
+            if(e=="ejercicio"){
+                $('#export').attr("href","/reporte-ejercicio/")
+            }else{
+                $('#export').attr("href","/reporte-evaluacion/")
+            }
+        }
+    }
+
+</script>
+
+<script>
+
+    function matricular(id){
+        var matricula=id;
+        $.ajax({
+            data: {'id':matricula},
+            url: '/registrarme/',
+            type: 'get',
+            success: function(context) {
+                if(context){
+                    swal("Informacion!", "ud se ha registrado correctamente", "success");
+                }
+            }
+        });
+
+//        swal({   title: "esta seguro que desea registrarse en este horario?",
+//                    text: "Una vez registrado no podrá deshacer ningun cambio",
+//                    type: "warning",
+//                    showCancelButton: true,
+//                    confirmButtonColor: "#DD6B55",
+//                    confirmButtonText: "Si, registrarme!",
+//                    closeOnConfirm: false },
+//                        function(){
+//                            var matricula=id;
+//                            $.ajax({
+//                                data: {'id':matricula},
+//                                url: '/registrarme/',
+//                                type: 'get',
+//                                success: function(context) {
+//                                    if(context){
+//                                        swal("Informacion!", "ud se ha registrado correctamente", "success");
+//
+//                                    }else{
+//                                        swal("Informacion!", "no hay cupo disponible", "error");
+//                                    }
+//                                    console.log(context);
+//
+//                                }
+//                            });
+//                        });
+
+
+
+    }
+</script>
+
+<script type="text/javascript">
+    //  var a=0, p=0, l=0, s=0, c=0, u=0,r=0;
+    var chart;
+    $.ajax({
+        url: '/nivelAcademico/',
+        type: 'get',
+        success: function(context) {
+            for (i=0; i < context.length ;i++){
+
+                a=context[i].abstraction;
+                p=context[i].parallelization;
+                l=context[i].logic;
+                s=context[i].synchronization;
+                c=context[i].flowControl;
+                u=context[i].userInteractivity;
+                r=context[i].dataRepresentation;
+            }
+            chart = Highcharts.chart('level', {
+
+                title: {
+                    text: 'Mi Nivel Academico'
+                },
+
+                subtitle: {
+                    text: 'Simple'
+                },
+
+                xAxis: {
+                    categories: ['Paralelismo', 'Logica', 'Abstraccion', 'Interaccion', 'Control', 'Representacion', 'Sincronizacion']
+                },
+
+                series: [{
+                    type: 'column',
+                    colorByPoint: true,
+                    data: [p,l,a,u,c,r,s],
+                    showInLegend: false
+                }]
+
+            });
+        }
+    });
+
+    //var chart = Highcharts.chart('level', {
+    //
+    //    title: {
+    //        text: 'Mi Nivel Academico'
+    //    },
+    //
+    //    subtitle: {
+    //        text: 'Plain'
+    //    },
+    //
+    //    xAxis: {
+    //        categories: ['Paralelismo', 'Logica', 'Abstraccion', 'Interaccion', 'Control', 'Representacion', 'Sincronizacion']
+    //    },
+    //
+    //    series: [{
+    //        type: 'column',
+    //        colorByPoint: true,
+    //        data: [p,2,3,1,2,3,0],
+    //        showInLegend: false
+    //    }]
+    //
+    //});
+
+
+    $('#plain').click(function () {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: false
+            },
+            subtitle: {
+                text: 'Simple'
+            }
+        });
+    });
+
+    $('#inverted').click(function () {
+        chart.update({
+            chart: {
+                inverted: true,
+                polar: false
+            },
+            subtitle: {
+                text: 'Invertido'
+            }
+        });
+    });
+
+    $('#polar').click(function () {
+        chart.update({
+            chart: {
+                inverted: false,
+                polar: true
+            },
+            subtitle: {
+                text: 'Polar'
+            }
+        });
+    });
+
+</script>
+<script>
+    {% if messages %}
+        {% for message in messages %}
+            swal("Informacion!", "{{ message }}", "{{ message.tags }}");
+        {% endfor %}
+    {% endif %}
+</script>
+
+{% block js %}
+
+{% endblock %}
+
+
+</body>
+</html>

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>CARAMBA - Ejercicio</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{STATIC_URL}}css/ejercicio/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{STATIC_URL}}css/ejercicio/blog-post.css" rel="stylesheet">
+	 <link href="{{STATIC_URL}}css/ejercicio/style.css" rel="stylesheet" />
+	  <!--<link href="{{STATIC_URL}}css/ejercicio/font-awesome.css" rel="stylesheet" />-->
+	  <link href="{{STATIC_URL}}fonts/font-awesome/font-awesome.min.css" rel="stylesheet" />
+	  <link href="{{STATIC_URL}}css/ejercicio/jquery.css" rel="stylesheet" />
+	  <link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/ejercicio/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/ejercicio/demo.css" />
+		<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/ejercicio/component.css" />
+    <link href="{{STATIC_URL}}css/animate.min.css" rel="stylesheet">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">CARAMBA Scratch</a>
+
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bienvenido, {{user.first_name}} <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="{% url 'profile' user.username %}">Perfil</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'password' %}">Cambio Contraseña</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'logout' %}">Salir</a>
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <!-- Blog Post Content Column -->
+            <div class="col-lg-8">
+
+                <!-- Blog Post -->
+                <!-- Author -->
+                <p class="lead">
+                    <a href="#"><b>Ejercicio <span id="id_ejercicio">{{ejercicio.id}}</span>:</b> <i><span id="name_ejercicio">{{ejercicio.name}}</span></i></a>
+                </p>
+                <!-- Date/Time -->
+                <p><i class="fa fa-clock-o" aria-hidden="true"></i> Publicado el <span id="creado"> {{ejercicio.created}}</span> por <span id="publicado">{{ejercicio.user.first_name}} {{ejercicio.user.last_name}}</span></p>
+                <hr>
+                <!-- Preview Image -->
+                 <p class="lead" id="ejercicio">{{ejercicio.description}} </p>
+                <!--<p>Elige un avatar y mediante los controles, has que realize 5 pasos consecutivos hacia la izquierda hasta llegar a la meta</p>-->
+
+              <button id="btn-comenzar" onclick="abrir()">Comenzar</button>
+
+                <hr>
+                <!-- Post Content -->
+
+    	 <form role="form" method="POST" enctype="multipart/form-data">{% csrf_token %}
+
+             <!--<div class="form-group">-->
+                            <!--{% if form.file.errors %}-->
+                                <!--<div class="alert alert-danger alert-dismissible fade in" role="alert">-->
+                                    <!--<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>-->
+                                    <!--<ul class="errorlist"><li>Elija un archivo <ul class="errorlist"></ul></li></ul>-->
+                                <!--</div>-->
+                             <!--{% endif %}-->
+                            <!--<label for="exampleInputEmail1">{{ form.file.label_tag }}</label>-->
+                            <!--<div class="input-group">-->
+                                <!--<span class="input-group-addon"><i class="fa fa-file"></i></span></span>-->
+                                <!--{{ form.file }}-->
+                            <!--</div>-->
+                        <!--</div>-->
+
+                <div class="form-group">
+                    {{form.exercise}}
+                    {{form.duration}}
+                    <div id="wrapper">
+                    {% if form.like.errors %}
+                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    <ul class="errorlist"><li>Califique el gusto <ul class="errorlist"></ul></li></ul>
+                                </div>
+                     {% endif %}
+                    <h3 class="clasificacion"> <input id="radio1" type="radio" name="like" value="5"><label for="radio1">&#9733;</label><input id="radio2" type="radio" name="like" value="4"><label for="radio2">&#9733;</label><input id="radio3" type="radio" name="like" value="3"><label for="radio3">&#9733;</label><input id="radio4" type="radio" name="like" value="2"><label for="radio4">&#9733;</label><input id="radio5" type="radio" name="like" value="1"><label for="radio5">&#9733;</label>
+                    : Gusto </h3>
+                    {% if form.like.errors %}
+                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    <ul class="errorlist"><li>Califique la dificultad<ul class="errorlist"></ul></li></ul>
+                                </div>
+                     {% endif %}
+                        <h3 class="clasificacion1">
+                    <input id="radio6" type="radio" name="difficulty" value="5"><label for="radio6">&#9733;</label><input id="radio7" type="radio" name="difficulty" value="4"><label for="radio7">&#9733;</label><input id="radio8" type="radio" name="difficulty" value="3"><label for="radio8">&#9733;</label><input id="radio9" type="radio" name="difficulty" value="2"><label for="radio9">&#9733;</label><input id="radio10" type="radio" name="difficulty" value="1"><label for="radio10">&#9733;</label>
+                    : Dificultad</h3>
+                    </div>
+
+                <div id="subir">
+                    {% if form.file.errors %}
+                                <div class="alert alert-danger alert-dismissible fade in" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    <ul class="errorlist"><li>extension del archivo no permitido <ul class="errorlist"></ul></li></ul>
+                                </div>
+                    {% endif %}
+                    {{form.file}}
+                   </div>
+                </div>
+                   <div style="text-align:center;">
+                <button type="submit" class="btn btn-primary">Calificar</button>
+                <button type="reset"  class="btn btn-default">Cancelar</button>
+                </div>
+         </form>
+
+				</div>
+       <!-- Blog Sidebar Widgets Column -->
+            <div class="col-md-4">
+                <!-- Blog Search Well -->
+                <div class="well">
+                    <h4>CRONÓMETRO</h4>
+                    <div class="input-group">
+                        <div id="timer">
+            <div class="container">
+                <div id="hour">00</div>
+                <div class="divider">:</div>
+                <div id="minute">00</div>
+                <div class="divider">:</div>
+                <div id="second">00</div>
+            </div>
+        </div>
+                        </button>
+                        </span>
+                    </div>
+                    <!-- /.input-group -->
+                </div>
+
+                <!-- Blog Categories Well -->
+                <div class="well">
+                    <h4>EJERCICIOS</h4>
+                    <div class="row">
+                       <div id="tabs" style="overflow: auto;height: 200px">
+						  <ul>
+							<li><a href="#tabs-1">Recomendados</a></li>
+							<li><a href="#tabs-2">Todos</a></li>
+
+						  </ul>
+						  <div id="tabs-1">
+							<table class="table table-condensed">
+								<tbody>
+								  <tr><td class="none" onMouseOver="this.className='resaltar'" onMouseOut="this.className='none'"><a href="" style="width:100%;height:100%;display:block;">Ejercicio #1 Movimiento Básico</a></td> </tr>
+								  <tr><td class="none" onMouseOver="this.className='resaltar'" onMouseOut="this.className='none'"><a href="" style="width:100%;height:100%;display:block;">Ejercicio #20 Condicional Experto <b>★ nuevo</b></a></td> </tr>
+								  <tr><td class="none" onMouseOver="this.className='resaltar'" onMouseOut="this.className='none'"><a href="" style="width:100%;height:100%;display:block;">Ejercicio #12 Movimiento Giro 180°</a></td> </tr>
+								</tbody>
+							  </table>
+						  </div>
+						  <div id="tabs-2">
+							<table class="table table-condensed">
+								<tbody>
+								<tr><td class="none" onMouseOver="this.className='resaltar'" onMouseOut="this.className='none'"><a href="" style="width:100%;height:100%;display:block;">Ejercicio #1 Movimiento Básico</a></td> </tr>
+								  <tr><td class="none" onMouseOver="this.className='resaltar'" onMouseOut="this.className='none'"><a href="" style="width:100%;height:100%;display:block;">Ejercicio #2 Condicional Básico</a></td> </tr>
+								  <tr><td class="none" onMouseOver="this.className='resaltar'" onMouseOut="this.className='none'"><a href="" style="width:100%;height:100%;display:block;">Ejercicio #2 Movimiento Giro°</a></td> </tr>
+
+								</tbody>
+							  </table>
+						  </div>
+
+						</div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+
+                <!-- Side Widget Well -->
+
+
+            </div>
+
+        </div>
+        <!-- /.row -->
+                <div class="well">
+                    <div id="chartContainer" style="height: 250px; width: 90%; margin-left: 5%; "></div>
+                </div>
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Your Website 2014</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+<!-- jQuery -->
+    <script src="{{STATIC_URL}}js/ejercicio/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="{{STATIC_URL}}js/ejercicio/bootstrap.min.js"></script>
+	<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  	<script>(function(e,t,n){var r=e.querySelectorAll("html")[0];r.className=r.className.replace(/(^|\s)no-js(\s|$)/,"$1js$2")})(document,window,0);</script>
+	<script src="{{STATIC_URL}}js/ejercicio/custom-file-input.js"></script>
+	<script>
+  $( function() {
+    $( "#tabs" ).tabs();
+  } );
+  </script>
+  <script>
+
+$(document).ready(function(){
+
+    var tiempo = {
+        hora: 0,
+        minuto: 0,
+        segundo: 0
+    };
+
+    var tiempo_corriendo = null;
+
+    $("#btn-comenzar").click(function(){
+        if ( $(this).text() == 'Comenzar' )
+        {
+            $(this).text('Detener');
+            tiempo_corriendo = setInterval(function(){
+                // Segundos
+                tiempo.segundo++;
+                if(tiempo.segundo >= 60)
+                {
+                    tiempo.segundo = 0;
+                    tiempo.minuto++;
+                }
+
+                // Minutos
+                if(tiempo.minuto >= 60)
+                {
+                    tiempo.minuto = 0;
+                    tiempo.hora++;
+                }
+
+                $("#hour").text(tiempo.hora < 10 ? '0' + tiempo.hora : tiempo.hora);
+                $("#minute").text(tiempo.minuto < 10 ? '0' + tiempo.minuto : tiempo.minuto);
+                $("#second").text(tiempo.segundo < 10 ? '0' + tiempo.segundo : tiempo.segundo);
+                $("#id_duration").val(document.getElementById("hour").textContent+":"+document.getElementById("minute").textContent+":"+document.getElementById("second").textContent);
+
+            }, 1000);
+        }
+        else
+        {
+            $(this).text('Comenzar');
+            clearInterval(tiempo_corriendo);
+        }
+        $('#ejercicio').show();
+        $("#btn-comenzar").hide();
+        $('#cronometro').addClass('animated pulse infinite');
+    })
+})
+        </script>
+
+<script type="text/javascript" src="{{STATIC_URL}}js/ejercicio/jquery.canvasjs.min.js"></script>
+<script type="text/javascript">
+window.onload = function () {
+    var Abstraccion=0;
+    var Paralelismo=0;
+    var Logica=0;
+    var Sincronizacion=0;
+    var Control=0;
+    var Interaccion=0;
+    var Representacion=0;
+
+
+//Better to construct options first and then pass it as a parameter
+    $.ajax({
+        url: '/nivelAcademico/',
+        type: 'get',
+        success: function(context) {
+            for (i=0; i < context.length ;i++){
+                    Abstraccion=context[i].abstraction;
+                    Paralelismo=context[i].parallelization;
+                    Logica=context[i].logic;
+                    Sincronizacion=context[i].synchronization;
+                    Control=context[i].flowControl;
+                    Interaccion=context[i].userInteractivity;
+                    Representacion=context[i].dataRepresentation;
+            }
+
+
+            var options = {
+            title: {
+                text: "Nivel Academico"
+            },
+                    animationEnabled: true,
+
+                data: [
+            {
+                type: "column", //change it to line, area, bar, pie, etc
+                dataPoints: [
+                    { label: "Paralelismo", y: Paralelismo },
+                    { label: "Logica", y: Logica },
+                    { label: "Abstraccion", y: Abstraccion },
+                    { label: "Interaccion", y: Interaccion },
+                    { label: "Control", y: Control },
+                    { label: "Representacion", y: Representacion },
+                    { label: "Sincronizacion", y: Sincronizacion }
+                ]
+            }
+            ]
+        };
+        $("#chartContainer").CanvasJSChart(options);
+        $("#ejercicio").hide();
+        }
+    });
+
+
+
+//	var options = {
+//		title: {
+//			text: "Nivel Academico"
+//		},
+//                animationEnabled: true,
+//		data: [
+//		{
+//			type: "column", //change it to line, area, bar, pie, etc
+//
+//            dataPoints: [
+//				{ label: "Paralelismo", y: 0 },
+//				{ label: "Logica", y: 0 },
+//				{ label: "Abstraccion", y: 0 },
+//				{ label: "Interaccion", y: 0 },
+//				{ label: "Control", y: 0 },
+//				{ label: "Representacion", y: 0 },
+//				{ label: "Sincronizacion", y: 0 }
+//			]
+//		}
+//		]
+//	};
+//
+//	$("#chartContainer").CanvasJSChart(options);
+//    $("#ejercicio").hide();
+    $("#exercise").val({{ejercicio.id}})
+
+
+}
+</script>
+<script>
+    function abrir() {
+        w=800;
+        h=600;
+        if (window.screen) {
+        w = window.screen.availWidth;
+        h = window.screen.availHeight;
+        h= (h*90)/100;
+        w= (w*75)/100;
+        w1= (w*24)/100;
+        }
+        open('https://scratch.mit.edu/projects/editor/?tip_bar=getStarted','newwin','width='+w+',height='+h+',top=0,left=0');
+
+    }
+</script>
+    <script>
+        $.ajax({
+//            data: {'id':info},
+            url: '/ejercicio-todos/',
+            type: 'get',
+            success: function(context) {
+                var html = '<table class="table table-condensed"><tbody>';
+
+                    for (i=0; i < context.length ;i++){
+                            html = html + '<tr>'+
+                                        '<td class="none" >'+
+                                '<a href="#" onclick= consulta('+ context[i].id+  ') style="width:100%;height:100%;display:block;">Ejercicio #'+context[i].id +" "+ context[i].nombre +'</a>'+
+                                '</td>'+
+                                '</tr>'
+                    }
+                        html=html +'</tbody> </table>';
+                    $('#tabs-2').html(html)
+                }
+        });
+    </script>
+
+
+    <script>
+        $.ajax({
+//            data: {'id':info},
+            url: '/recomendacion/',
+            type: 'get',
+            success: function(context) {
+                var html = '<table class="table table-condensed"><tbody>';
+                    if (context.length==0){
+
+                        $('#tabs-1').html('Debe realizar al menos 1 ejercicio para poder recomendarle')
+                    }else {
+                        for (i = 0; i < context.length; i++) {
+                            html = html + '<tr>' +
+                                    '<td class="none" >' +
+                                    '<a href="#" onclick= consulta(' + context[i].id + ') style="width:100%;height:100%;display:block;">Ejercicio #' + context[i].id + " " + context[i].nombre + '</a>' +
+                                    '</td>' +
+                                    '</tr>'
+                        }
+                        html = html + '</tbody> </table>';
+                        $('#tabs-1').html(html)
+                    }
+                }
+        });
+    </script>
+
+    <script>
+        function consulta(id){
+            var ejercicio_id=id;
+            $.ajax({
+                data: {'id':ejercicio_id},
+                url: '/consultar-ejercicio/',
+                type: 'get',
+                success: function(context) {
+                    for (i=0; i < context.length ;i++){
+                        $('#creado').html(context[i].creado);
+                        $('#publicado').html(context[i].usuario);
+                        $('#id_ejercicio').html(context[i].id);
+                        $('#name_ejercicio').html(context[i].nombre);
+                        $('#ejercicio').html(context[i].descripcion);
+                        $('#exercise').val(context[i].id);
+                    }
+
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

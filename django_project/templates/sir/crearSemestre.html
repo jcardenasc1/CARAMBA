@@ -1,0 +1,68 @@
+{% extends "base2.html" %}
+{% block contenido %}
+    {% if user.is_superuser %}
+        <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Crear Semestre <small>Formulario</small>
+                        </h1>
+
+                    </div>
+                </div>
+				   <!-- Parte central -->
+            <div class="col-md-12">
+
+                <div class="col-md-12" style="border-width: 1px 1px 0px 1px; border-style: solid; border-color: lightgrey;">
+                    <h3 style="text-align: center">Nuevo Semestre<p></p></h3>
+                </div>
+                <!-- Se inicia el form (ojo todos los elementos de formulario deben ir dentro de esta etiqueta-->
+                <form role="form" method="POST">{% csrf_token %}
+                <!-- Inicio del div central parte de formulario información básica -->
+                <div class="col-md-12" style="border-width: 1px 1px 0px 1px; border-style: solid; border-color: lightgrey; background: #f1f3f6;">
+                	<div class="col-md-8 col-md-offset-2">
+
+    	                    <div class="control-group form-group">
+    	                        <div class="controls">
+    	                            {{form.as_p}}
+
+    	                        </div>
+                        	</div>
+                    </div>
+                </div>
+                <!-- Fin del div central parte de formulario información básica -->
+
+
+
+                    <!-- Botones formulario -->
+                	<div class="col-md-12 container allFormButtons">
+                		<br >
+    	               	<div class="col-md-2 col-md-offset-2">
+                            <div class="form-group">
+							<button type="submit" id="btnEnviar" class="btn btn-success">Guardar</button>
+
+                            </div>
+    		            </div>
+    	                <div class="col-md-5 col-md-offset-3">
+                            <div class="form-group">
+        		               <a class="link-back"><button type="button" id="btnCancel" class="btn btn-danger">Cancelar</button></a>
+
+                            </div>
+                        </div>
+                        &nbsp;
+    	            </div>
+                   	<!-- Fin botones formulario -->
+                </div>
+                <!-- Fin Parte central - enlaces -->
+            </form>
+            <!-- Fin del form -->
+
+            </div>
+    {% else %}
+        <div class="alert alert-danger" role="alert">
+            No tiene permisos para realizar esta accion
+        </div>
+    {% endif %}
+{% endblock %}

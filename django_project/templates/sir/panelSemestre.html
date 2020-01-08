@@ -1,0 +1,79 @@
+{% extends "base2.html" %}
+    {% block contenido %}
+        {% if user.is_superuser %}
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <a href="{% url 'newSemester' %}" class="btn btn-primary pull-right" data-toggle="tooltip" data-placement="top" title="Crear"><span><i class="fa fa-plus"></i></span> Nuevo Semestre </a>
+                        <h1 class="page-header">
+                            Mis Semestres <small>administración</small>
+                        </h1>
+
+                    </div>
+                </div>
+				   <!-- Parte central -->
+            <div class="col-md-12">
+
+                <!-- Se inicia el form (ojo todos los elementos de formulario deben ir dentro de esta etiqueta-->
+                <form name="modifyProfile" id="profileForm" novalidate>
+                <!-- Inicio del div central parte de formulario información básica -->
+              <!-- poner aqui la tabla -->
+              <table id="example" class="display" cellspacing="10"  width="100%">
+			   <thead>
+            <tr>
+                <th>#</th>
+                <th>Descripcion</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>#</th>
+                <th>Descripcion</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </tfoot>
+        <tbody>
+        {% for sem in semestre %}
+            <tr>
+                <td>#</td>
+                <td class="name">{{sem.description}}</td>
+                <td>{{sem.state}}</td>
+                <td>
+                    <a href="{% url 'editSemester' sem.id %}" class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Editar"><span><i class="fa fa-pencil"></i></span></a>
+                    <a href="{% url 'editSemester' sem.id %}" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Eliminar"><span><i class="fa fa-trash"></i></span></a>
+                </td>
+            </tr>
+        {% endfor %}
+
+			</table>
+                <!-- Fin Parte central - enlaces -->
+            </form>
+            <!-- Fin del form -->
+            </div>
+            <!-- Fin del div de parte central -->
+        </div>
+        <!-- Fin Campos del formulario de contacto con validación de campos -->
+        &nbsp;
+                    <!-- Fin del form -->
+                    </div>
+        {% else %}
+            <div class="alert alert-danger" role="alert">
+                No tiene permisos para realizar esta accion
+            </div>
+        {% endif %}
+    {% endblock %}}
+
+    {% block js %}
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+    {% endblock %}}

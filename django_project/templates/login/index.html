@@ -1,0 +1,417 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>CARAMBA</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="unemi" content="">
+<link href="{{STATIC_URL}}css/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="{{STATIC_URL}}css/css/style.css" rel="stylesheet">
+<link href="{{STATIC_URL}}css/color/default.css" rel="stylesheet">
+<link rel="shortcut icon" href="{{STATIC_URL}}images/img/sir2.png">
+<link href="{{STATIC_URL}}css/sweetalert.css" rel="stylesheet">
+<style>
+   .form  select{height:40px;*margin-top:4px;line-height:30px;  }
+   .form select{width:100%;background-color:#fff; color:#333; border-radius: 3px;  border: none;}
+</style>
+</head>
+<body>
+<!-- navbar -->
+<div class="navbar-wrapper">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="text-right" style="background-color: #ff9f00" id="google_translate_element"></div>
+		<!--<div class="text-right" id="google_translate_element"></div>-->
+					<script type="text/javascript">
+						function googleTranslateElementInit() {
+						  new google.translate.TranslateElement({pageLanguage: 'es', includedLanguages: 'en', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, autoDisplay: false}, 'google_translate_element');
+					}
+					</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+		<div class="navbar-inner">
+			<div class="container">
+				<!-- Responsive navbar -->
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+				</a>
+				<h1 class="brand"><a href="#">CARAMBA</a></h1>
+				<!-- navigation -->
+				<nav class="pull-right nav-collapse collapse">
+				<ul id="menu-main" class="nav">
+
+					<li><a title="services" href="#services">Servicios</a></li>
+					<li><a title="contact" href="#contact">Contáctanos</a></li>
+					<li><a title="team" href="#about">Acerca de</a></li>
+					<li><a data-toggle="modal" href="javascript:void(0)" onclick="openLoginModal();" >Iniciar Sesion</a></li>
+					<li><a data-toggle="modal" href="javascript:void(0)" onclick="openRegisterModal();" >Registrate</a></li>
+
+				</ul>
+				</nav>
+
+			</div>
+
+		</div>
+
+	</div>
+
+</div>
+<div class="modal fade login" id="loginModal">
+		      <div class="modal-dialog login animated">
+    		      <div class="modal-content">
+    		         <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Iniciar Sesion</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="box">
+                             <div class="content">
+
+                                <div class="form loginBox">
+									<form role="form" method="POST">{% csrf_token %}
+                                        {{ login_form.username }}
+                                        {{ login_form.password }}
+                                        <!--<input class="btn btn-default btn-login" type="button" value="Iniciar Sesion" onclick="loginAjax()">-->
+										<input type="submit" class="btn btn-default btn-login" name="login_form" value="Iniciar Sesion">
+									</form>
+                                </div>
+                             </div>
+                        </div>
+                        <div class="box">
+                            <div class="content registerBox" style="display:none;">
+                             <div class="form">
+                                 <form role="form" method="POST">{% csrf_token %}
+                                    {{ user_register.first_name }}
+                                    {{ user_register.last_name }}
+                                    {{ user_register.birthdate }}
+                                    {{ user_register.email }}
+									{{ user_register.section }}
+                                    {{ user_register.sex }}
+                                    {{ user_register.status }}
+                                    {{ user_register.username }}
+                                    {{ user_register.password }}
+                                    <input type="submit" class="btn btn-default btn-register" name="register_form" value="Registrarse">
+                                </form>
+
+                                <!--<form method="post" html="{:multipart=>true}" data-remote="true" action="/register" accept-charset="UTF-8">-->
+
+									<!--<input id="email" class="form-control" type="text" placeholder="Correo Electronico" name="email">-->
+									<!--<input id="usuario" class="form-control" type="text" placeholder="Usuario" name="usuario">-->
+									<!--<input id="seccion" class="form-control" type="text" placeholder="Sección (matutina o nocturna)" name="seccion">-->
+									<!--<input id="sexo" class="form-control" type="text" placeholder="sexo (femenino o masculino)" name="seccion">-->
+									<!--<input id="estatus" class="form-control" type="text" placeholder="Estatus (Docente o estudiante)" name="seccion">-->
+									<!--<input id="password" class="form-control" type="password" placeholder="Contraseña" name="password">-->
+									<!--<input id="password_confirmation" class="form-control" type="password" placeholder="Repetir Contraseña" name="password_confirmation">-->
+									<!--<input class="btn btn-default btn-register" type="submit" value="Registrate" name="commit">-->
+                                <!--</form>-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="forgot login-footer">
+                            <span>No te has registrado?
+                                 <a href="javascript: showRegisterForm();">Crea una Cuenta</a>
+                            </span>
+                            <br>
+                                 <a href="{% url 'password_reset' %}">Has olvidado tu contraseña?</a>
+                        </div>
+                        <div class="forgot register-footer" style="display:none">
+                             <span>Ya tienes una cuenta?</span>
+                             <a href="javascript: showLoginForm();">Iniciar Sesión</a>
+                        </div>
+                    </div>
+    		      </div>
+		      </div>
+		  </div>
+<!-- Header area -->
+<div id="header-wrapper" class="header-slider">
+
+	<header class="clearfix">
+
+	<div class="logo">
+		<img src="{{STATIC_URL}}images/img/sir2.png" alt="" />
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<div id="main-flexslider" class="flexslider">
+					<ul class="slides">
+						<li>
+						<p class="home-slide-content">
+							<strong>Imagina</strong>
+						</p>
+						</li>
+						<li>
+						<p class="home-slide-content">
+							<strong>Programa</strong>
+						</p>
+						</li>
+						<li>
+						<p class="home-slide-content">
+							<strong>Comparte</strong>
+						</p>
+						</li>
+					</ul>
+				</div>
+				<!-- end slider -->
+			</div>
+		</div>
+	</div>
+	</header>
+</div>
+<!-- spacer section -->
+<section class="spacer green">
+<div class="container">
+	<div class="row">
+		<div class="span6 alignright flyLeft">
+			<blockquote class="large">
+				 Aprender a Programar, Programar para Aprender"
+			</blockquote>
+		</div>
+		<div class="span6 aligncenter flyRight">
+			<i class="icon-coffee icon-10x"></i>
+		</div>
+	</div>
+</div>
+</section>
+<!-- end spacer section -->
+<!-- section: team -->
+<section id="about" class="section">
+<div class="container">
+	<h4>QUE ES SCRATCH ?</h4>
+	<div class="row">
+		<div class="span4 offset1">
+			<div>
+				<h2>Mejora tus habilidades para programar con <strong>Scratch</strong></h2>
+				<p>
+					La habilidad para crear programas de ordenador es una parte importante de la alfabetización de la sociedad actual. Cuando la gente aprende a programar en Scratch, aprenden importantes estrategias para resolver problemas, diseñar proyectos y comunicar ideas.
+					</p>
+			</div>
+		</div>
+		<div class="span6">
+			<div class="aligncenter">
+				<img src="{{STATIC_URL}}images/img/icons/creativity.png" alt="" />
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span2 offset1 flyIn">
+			<div class="people">
+				<img class="team-thumb img-circle" src="{{STATIC_URL}}images/img/team/jess.png" alt="" />
+				<h3>Jessenia Cárdenas</h3>
+				<p>
+					Directora del proyecto
+				</p>
+			</div>
+		</div>
+		<div class="span2 flyIn">
+			<div class="people">
+				<img class="team-thumb img-circle" src="{{STATIC_URL}}images/img/team/img-2.jpg" alt="" />
+				<h3>Mike Doe</h3>
+				<p>
+					Web developer
+				</p>
+			</div>
+		</div>
+		<div class="span2 flyIn">
+			<div class="people">
+				<img class="team-thumb img-circle" src="{{STATIC_URL}}images/img/team/img-3.jpg" alt="" />
+				<h3>Neil Doe</h3>
+				<p>
+					Web designer
+				</p>
+			</div>
+		</div>
+		<div class="span2 flyIn">
+			<div class="people">
+				<img class="team-thumb img-circle" src="{{STATIC_URL}}images/img/team/img-4.jpg" alt="" />
+				<h3>Mark Joe</h3>
+				<p>
+					UI designer
+				</p>
+			</div>
+		</div>
+		<div class="span2 flyIn">
+			<div class="people">
+				<img class="team-thumb img-circle" src="{{STATIC_URL}}images/img/team/img-5.jpg" alt="" />
+				<h3>Stephen B</h3>
+				<p>
+					Digital imaging
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- /.container -->
+</section>
+<!-- end section: team -->
+<!-- section: services -->
+<section id="services" class="section orange">
+<div class="container">
+	<h4>Sistema Informatico de Recomendación Scratch</h4>
+	<!-- Four columns -->
+	<div class="row">
+		<div class="span3 animated-fast flyIn">
+			<div class="service-box">
+				<img src="{{STATIC_URL}}images/img/icons/laptop.png" alt="" />
+				<h2>Pensamiento Computacional</h2>
+				<p>
+					 CARAMBA analiza el pensamiento computacional y te recomendará ejercicios acorde a tus gustos.
+				</p>
+			</div>
+		</div>
+		<div class="span3 animated flyIn">
+			<div class="service-box">
+				<img src="{{STATIC_URL}}images/img/icons/afinidad.png" alt="" />
+				<h2>Afinidad</h2>
+				<p>
+					 CARAMBA te recomendará ejercicios según la afinidad con tus compañeros.
+				</p>
+			</div>
+		</div>
+		<div class="span3 animated-fast flyIn">
+			<div class="service-box">
+				<img src="{{STATIC_URL}}images/img/icons/educator1.png" alt="" />
+				<h2>Estructura</h2>
+				<p>
+					  Al analizar tus ejercicios, CARAMBA te recomendará ejercicios  de acorde a las estructuras menos usadas.
+				</p>
+			</div>
+		</div>
+		<div class="span3 animated-slow flyIn">
+			<div class="service-box">
+				<img src="{{STATIC_URL}}images/img/icons/dificultad.png" alt="" />
+				<h2>Niveles</h2>
+				<p>
+					 CARAMBA  te recomendará ejercicios dependiendo de tu nivel académico.
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+<!-- end section: services -->
+
+			</div>
+		</div>
+	</div>
+</div>
+</section>
+<!-- spacer section -->
+<section class="spacer bg3">
+<div class="container">
+	<div class="row">
+		<div class="span12 aligncenter flyLeft">
+			<blockquote class="large">
+				 La mayoría de los buenos programadores programan, no porque esperan que se les pague o por adulación por parte del público, sino porque es divertido programar."
+<cite>Linus Torvalds</cite>
+			</blockquote>
+		</div>
+		<div class="span12 aligncenter flyRight">
+			<i class="icon-rocket icon-10x"></i>
+		</div>
+	</div>
+</div>
+</section>
+<!-- end spacer section -->
+<!-- section: blog -->
+
+
+<!-- end spacer section -->
+<!-- section: contact -->
+<section id="contact" class="section green">
+<div class="container">
+
+	<h4>Contáctanos</h4>
+	<p>
+		 CARAMBA es un proyecto en crecimiento, si tienes alguna duda, pregunta o consejo escribemenos y ayudanos a mejorar, para asi lograr incentivar mas el aprendizaje computacional y que en un futuro muchas personas se convierntan en programadores
+	</p>
+	<div class="blankdivider30">
+	</div>
+	<div class="row">
+		<div class="span12">
+			<div class="cform" id="contact-form">
+				<div id="sendmessage">Tu mensaje ha sido enviado. Gracias!</div>
+                <div id="errormessage"></div>
+				<form action="" method="post" role="form" class="contactForm">
+					<div class="row">
+						<div class="span6">
+							<div class="field your-name form-group">
+								<input type="text" name="name" class="form-control" id="name" placeholder="Tu Nombre" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                                <div class="validation"></div>
+							</div>
+							<div class="field your-email form-group">
+								<input type="text" class="form-control" name="email" id="email" placeholder="Tu Correo" data-rule="email" data-msg="Please enter a valid email" />
+                                <div class="validation"></div>
+							</div>
+							<div class="field subject form-group">
+								<input type="text" class="form-control" name="subject" id="subject" placeholder="Asunto" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                                <div class="validation"></div>
+							</div>
+						</div>
+						<div class="span6">
+							<div class="field message form-group">
+								<textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Escribe tu mensaje ...."></textarea>
+                                <div class="validation"></div>
+							</div>
+							<input type="submit" value="Enviar mensaje" class="btn btn-theme pull-left">
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<!-- ./span12 -->
+	</div>
+</div>
+</section>
+<footer>
+<div class="container">
+	<div class="row">
+		<div class="span6 offset3">
+			<ul class="social-networks">
+				<li><a href="#"><i class="icon-circled icon-bgdark icon-instagram icon-2x"></i></a></li>
+				<li><a href="#"><i class="icon-circled icon-bgdark icon-twitter icon-2x"></i></a></li>
+				<li><a href="#"><i class="icon-circled icon-bgdark icon-dribbble icon-2x"></i></a></li>
+				<li><a href="#"><i class="icon-circled icon-bgdark icon-pinterest icon-2x"></i></a></li>
+			</ul>
+			<p class="copyright">
+				&copy; CARAMBA. Todos los derechos reservados.
+                <div class="credits">
+                    <!-- 
+                        All the links in the footer should remain intact. 
+                        You can delete the links only if you purchased the pro version.
+                        Licensing information: https://bootstrapmade.com/license/
+                        Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Maxim
+                    -->
+                    
+                </div>
+			</p>     
+		</div>
+	</div>
+</div>
+<!-- ./container -->
+</footer>
+
+<a href="#" class="scrollup"><i class="icon-angle-up icon-square icon-bgdark icon-2x"></i></a>
+<script src="{{STATIC_URL}}js/js/jquery.js"></script>
+<script src="{{STATIC_URL}}js/js/jquery.scrollTo.js"></script>
+<script src="{{STATIC_URL}}js/js/jquery.nav.js"></script>
+<script src="{{STATIC_URL}}js/js/jquery.localscroll-1.2.7-min.js"></script>
+<script src="{{STATIC_URL}}js/js/bootstrap.js"></script>
+<script src="{{STATIC_URL}}js/js/jquery.prettyPhoto.js"></script>
+<script src="{{STATIC_URL}}js/js/isotope.js"></script>
+<script src="{{STATIC_URL}}js/js/jquery.flexslider.js"></script>
+<script src="{{STATIC_URL}}js/js/inview.js"></script>
+<script src="{{STATIC_URL}}js/js/animate.js"></script>
+<script src="{{STATIC_URL}}js/js/validate.js"></script>
+<script src="{{STATIC_URL}}js/js/custom.js"></script>
+<script src="{{STATIC_URL}}js/js/login-register.js" type="text/javascript"></script>
+<link href="{{STATIC_URL}}css/css/login-register.css" rel="stylesheet" />
+<script src="{{ STATIC_URL }}js/sweetalert.min.js"></script>
+<script>
+	{% if messages %}
+		{% for message in messages %}
+			swal("Ops!", "{{ message }}", "{{ message.tags }}");
+		{% endfor %}
+	{% endif %}
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+<title>Certificado-Nivel Academico</title>
+    <link href="{{STATIC_URL}}css/reporte.css" rel="stylesheet">
+    <style type="text/css">
+        body{
+            font-size: 12pt;
+
+        }
+        table {
+        }
+        caption, td, th {
+           padding: 0.3em;
+            padding-bottom: 0.1em;
+        }
+         #encabezado
+         {
+             padding:10px 0; border-top: 1px solid; border-bottom: 1px solid; width:100%;
+         }
+
+</style>
+
+<style>
+    @page {
+        size: 29.7cm 21cm;
+        @frame header_frame {           /* Static Frame */
+            -pdf-frame-content: header_content;
+            left: 5%; width: 200%; top: 0%; height: 200%;
+        }
+        @frame content_frame {          /* Content Frame */
+            left: 0%; width: 100%; top: 0%; height: 100%;
+            margin-left: 4cm;
+            margin-right: 1cm;
+            margin-top:2cm;
+            margin-bottom:5cm;
+        }
+        @frame footer_frame {           /* Another static Frame */
+            -pdf-frame-content: footer_content;
+            left: 100pt; width: 512pt; top: 500pt; height: 20pt;
+        }
+    }
+</style>
+</head>
+
+<body>
+    <!-- Content for Static Frame 'header_frame' -->
+
+    <p style="text-align: center" >Milagro, {{ fecha }}</p>
+    <div id="header_content">
+        <img src="../../static/images/img/certicadocaramba.jpg" alt=""></div>
+    <div>
+
+        <h1 style="text-align: center; font-size: 25pt ; margin-top: 1025%; font-family: 'Arial Black'; font-style: oblique; color: #313D46 " > {{usuario}}</h1>
+
+        <h1 style="margin-left: 1250%; font-size: 30pt; margin-top: 110%; color: #313D46 " >{{puntaje}}</h1>
+
+    </div>
+
+
+    <!-- Content for Static Frame 'footer_frame' -->
+    <div id="footer_content" style="color: darkgray; text-align: center">
+
+        <br>
+        <br>
+        <br>
+        <pdf:pagecount s> Caramba Scratch
+    </div>
+
+    <!-- HTML Content -->
+
+</body>
+</html>
+

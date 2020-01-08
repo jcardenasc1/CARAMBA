@@ -1,0 +1,100 @@
+{% extends "base2.html" %}
+    {% block contenido %}
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+{#                            Mis Ejercicios <small>Estadísticas</small>#}
+                            Mis Ejercicios <small></small>
+                        </h1>
+
+                    </div>
+                </div>
+				   <!-- Parte central -->
+            <div class="col-md-12">
+
+                <!-- Se inicia el form (ojo todos los elementos de formulario deben ir dentro de esta etiqueta-->
+                <form name="modifyProfile" id="profileForm" novalidate>
+                <!-- Inicio del div central parte de formulario información básica -->
+              <!-- poner aqui la tabla -->
+              <table id="example" class="display" cellspacing="10"  width="100%">
+			   <thead>
+            <tr>
+                <th>Fecha</th>
+                <th>Ejercicio</th>
+                <th>Gusto</th>
+                <th >Dificultad</th>
+                <th>Duración</th>
+{#                <th>Paralelismo</th>#}
+{#                <th>Paralelismo</th>#}
+{#                <th>Logica</th>#}
+{#                <th>Abstraccion</th>#}
+{#				<th>Interactua</th>#}
+{#                <th>Control</th>#}
+{#				<th>Representa</th>#}
+{#                <th>Sincroniza</th>#}
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <th>Fecha</th>
+               <th>Ejercicio</th>
+                <th>Gusto</th>
+                <th >Dificultad</th>
+                <th>Duración</th>
+{#                <th>Paralelismo</th>#}
+{#                <th>Logica</th>#}
+{#                <th>Abstraccion</th>#}
+{#				<th>Interactua</th>#}
+{#                <th>Control</th>#}
+{#				<th>Representa</th>#}
+{#                <th>Sincroniza</th>#}
+            </tr>
+        </tfoot>
+        <tbody>
+        {% for e in ejercicio %}
+		 <tr>
+                 <td class="name">{{e.created|date:"M d, Y"}}</td>
+                 <td class="name">{{e.exercise.name}}</td>
+                <td >{{e.like}}</td>
+                <td>{{e.difficulty}}</td>
+                <td>{{e.duration}}</td>
+{#                <td>{{e.parallelization}}</td>#}
+{#                <td>{{e.logic}}</td>#}
+{#                <td>{{e.abstraction}}</td>#}
+{#                <td>{{e.userInteractivity}}</td>#}
+{#                <td>{{e.flowControl}}</td>#}
+{#                <td>{{e.dataRepresentation}}</td>#}
+{#                <td>{{e.synchronization}}</td>#}
+            </tr>
+                  {% endfor %}
+
+			</table>
+                <!-- Fin Parte central - enlaces -->
+            </form>
+            <!-- Fin del form -->
+            </div>
+            <!-- Fin del div de parte central -->
+        </div>
+        <!-- Fin Campos del formulario de contacto con validación de campos -->
+        &nbsp;
+        <hr>
+
+        <!-- Footer -->
+
+
+            <!-- Fin del form -->
+                    </div>
+    {% endblock %}}
+
+    {% block js %}
+<script>
+$(document).ready(function() {
+    $('#example').DataTable();
+} );
+</script>
+    {% endblock %}}

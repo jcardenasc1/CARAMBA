@@ -1,0 +1,60 @@
+{% extends "base2.html" %}
+{% block contenido %}
+    <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Cambio de Contraseña <small>Formulario</small>
+                        </h1>
+
+                    </div>
+                </div>
+				   <!-- Parte central -->
+            <div class="col-md-12" >
+
+                <!-- Se inicia el form (ojo todos los elementos de formulario deben ir dentro de esta etiqueta-->
+                <form role="form" method="POST">{% csrf_token %}
+                <!-- Inicio del div central parte de formulario información básica -->
+                <div class="col-md-12" style="border-width: 1px 1px 0px 1px; border-style: solid; border-color: lightgrey; background: #f1f3f6;">
+                	<div class="col-md-8 col-md-offset-2">
+
+    	                    <div class="control-group form-group">
+    	                        <div class="controls">
+    	                        	<br >
+    	                            <label>Cambiar Contraseña</label>
+    	                            {{form.as_p}}
+    	                            <p class="help-block"></p>
+    	                        </div>
+    	                    </div>
+
+                    </div>
+                </div>
+                <!-- Fin del div central parte de formulario información básica -->
+
+
+                    <!-- Botones formulario -->
+                	<div class="col-md-12 container allFormButtons">
+                		<br >
+    	               	<div class="col-md-2 col-md-offset-2">
+                            <div class="form-group">
+
+							  <button type="submit" id="btnEnviar" class="btn btn-primary">Actualizar</button>
+                            </div>
+    		            </div>
+    	                <div class="col-md-5 col-md-offset-3">
+                            <div class="form-group">
+        		              <a class="link-back"><button  type="button" id="btnCancel" class="btn btn-danger">Cancelar</button></a><br>
+
+                            </div>
+                        </div>
+                        &nbsp;
+    	            </div>
+                   	<!-- Fin botones formulario -->
+                </div>
+                <!-- Fin Parte central - enlaces -->
+            </form>
+
+            </div>
+{% endblock %}

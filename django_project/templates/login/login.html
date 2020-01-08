@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html >
+  <head>
+    <meta charset="UTF-8">
+    <title>Login-UnemiCalendar</title>
+
+
+
+    <link rel='stylesheet prefetch' href='http://fonts.googleapis.com/css?family=Open+Sans:600'>
+<link href="{{STATIC_URL}}css/bootstrap.css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/login.css">
+
+
+
+
+  </head>
+
+  <body>
+
+    <div class="login-wrap">
+	<div class="login-html">
+		<input id="tab-1" type="radio" name="tab" class="sign-in" checked><label for="tab-1" class="tab">Ingreso</label>
+		<input id="tab-2" type="radio" name="tab" class="sign-up"><label for="tab-2" class="tab">Registro</label>
+
+        <div class="login-form">
+			<div class="sign-in-htm">
+                <br><br><br><br><br><br><br><br><br><br>
+				<form role="form" method="POST">{% csrf_token %}
+                    <div class="group">
+                        <label for="user" class="label">Usuario</label>
+                            {{ login_form.username }}
+                    </div>
+                    <div class="group">
+                        <label for="user" class="label">Contraseña</label>
+                            {{ login_form.password }}
+                    </div>
+                    <div class="group">
+					    <input type="submit" class="button" name="login_form" value="Ingresar">
+				    </div>
+                </form>
+			</div>
+			<div class="sign-up-htm">
+				<form role="form" method="POST">{% csrf_token %}
+                     <div class="group">
+                            <label for="user" class="label">Nombres</label>
+                            {{ user_register.first_name }}
+                    </div>
+                     <div class="group">
+                            <label for="user" class="label">Apellidos</label>
+                            {{ user_register.last_name }}
+                    </div>
+                     <div class="group">
+                            <label for="user" class="label">Facultad</label>
+                            {{ user_register.facultad }}
+                     </div>
+                    <div class="group">
+                            <label for="user" class="label">Semestre</label>
+                            {{ user_register.semester }}
+                     </div>
+                     <div class="group">
+                            <label for="user" class="label">Email</label>
+                            {{ user_register.email }}
+                    </div>
+                     <div class="group">
+                            <label for="user" class="label">Nombre de usuario</label>
+                            {{ user_register.username }}
+                     </div>
+                     <div class="group">
+                            <label for="user" class="label">Contraseña</label>
+                            {{ user_register.password }}
+                    </div>
+                    <div class="group">
+					    <input type="submit" class="button" name="register_form" value="Registrarse">
+				    </div>
+
+                </form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+  </body>
+</html>
